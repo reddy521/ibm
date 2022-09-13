@@ -1,0 +1,39 @@
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            agent {
+               gitlab {
+                    https://gbsgittest.edst.ibm.com/Mounisha_Garlapati/sample-hello-world.git
+                }
+            }
+           
+          }  
+         stages {
+        stage('SonarQube') {
+            agent {
+                sonar {
+                    https://gbssonartest.edst.ibm.com
+                }
+            }
+           
+          } 
+	 stages {
+        stage('Artifactory') {
+            agent {
+                artifactory {
+                    https://gbsartifactorytest.in.dst.ibm.com
+                }
+            } 
+	}
+	 } 
+	 stages {
+        stage('Deployment') {
+            agent {
+             deployment{
+                    https://gbsucdtestupg.in.dst.ibm.com:8443
+                }
+            } 
+	}
+    }
+}
